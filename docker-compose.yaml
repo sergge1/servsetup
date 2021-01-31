@@ -25,4 +25,15 @@ services:
       - TZ=Europe/Kiev
     restart: always
     privileged: true
-   
+    homeassistant:
+  torrserver:
+    container_name: torrserver
+    image: sv43rus/torrserver
+    volumes:
+      - /home/pi/torrserver/db/:/torrserver/db/
+    ports:
+      - "8090:8090"  
+    environment:
+      - TZ=Europe/Kiev
+    restart: always
+    privileged: true
