@@ -5,7 +5,7 @@ services:
     container_name: home-assistant
     image: homeassistant/home-assistant:stable
     volumes:
-      - /home/pi/homeassistant/config/:/config/
+      - /home/pi/homeassistant/:/config/
     ports:
       - "8123:8123"  
     environment:
@@ -16,7 +16,7 @@ services:
     container_name: mosquitto
     image: eclipse-mosquitto
     volumes:
-      - /home/pi/mosquitto/config/:/mosquitto/config/
+      - /home/pi/mosquitto/:/mosquitto/config/
       - /home/pi/mosquitto/data/:/mosquitto/data/
       - /home/pi/mosquitto/log/:/mosquitto/log/
     ports:
@@ -25,9 +25,22 @@ services:
       - TZ=Europe/Kiev
     restart: always
     privileged: true
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt
+    volumes:
+      - /home/pi/z2m/data:/app/data
+      - /run/udev:/run/udev:ro
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+    restart: always
+    network_mode: host
+    privileged: true
+    environment:
+      - TZ=Europe/Kiev
   torrserver:
     container_name: torrserver
-    image: sv43rus/torrserver
+    image: sergge1/torrserver:latest
     volumes:
       - /home/pi/torrserver/db/:/torrserver/db/
     ports:
@@ -35,4 +48,4 @@ services:
     environment:
       - TZ=Europe/Kiev
     restart: always
-    privileged: true
+    privileged: true  
