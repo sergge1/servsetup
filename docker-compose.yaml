@@ -25,7 +25,6 @@ services:
       - TZ=Europe/Kiev
     restart: always
     privileged: true
-    homeassistant:
   torrserver:
     container_name: torrserver
     image: sv43rus/torrserver
