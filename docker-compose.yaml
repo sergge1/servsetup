@@ -1,0 +1,28 @@
+
+version: '3'
+services:
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant:stable
+    volumes:
+      - /home/pi/homeassistant/config/:/config/
+    ports:
+      - "8123:8123"  
+    environment:
+      - TZ=Europe/Kiev
+    restart: always
+    privileged: true
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto
+    volumes:
+      - /home/pi/mosquitto/config/:/mosquitto/config/
+      - /home/pi/mosquitto/data/:/mosquitto/data/
+      - /home/pi/mosquitto/log/:/mosquitto/log/
+    ports:
+      - "9001:9001"  
+    environment:
+      - TZ=Europe/Kiev
+    restart: always
+    privileged: true
+   
